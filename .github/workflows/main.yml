@@ -11,7 +11,7 @@ jobs:
       - name: Pasang Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install Bahan
         run: npm install
@@ -24,7 +24,9 @@ jobs:
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init "EnjinGameAku" "com.fahmex190.enjin" --web-dir out
           npx cap add android
-          npx cap build android --no-open
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
           
       - name: Sediakan Link Download
         uses: actions/upload-artifact@v4
