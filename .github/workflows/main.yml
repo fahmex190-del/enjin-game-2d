@@ -13,6 +13,12 @@ jobs:
         with:
           node-version: 24
 
+      - name: Sediakan Java (Penyelesaian Error)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
       - name: Install Bahan
         run: npm install
 
