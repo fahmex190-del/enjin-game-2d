@@ -1,0 +1,33 @@
+name: Bina APK Android
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil Kod
+        uses: actions/checkout@v4
+
+      - name: Pasang Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Bahan
+        run: npm install
+
+      - name: Build Web (Offline Mode)
+        run: npm run build
+
+      - name: Balut Jadi APK (Guna Capacitor)
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init "EnjinGameAku" "com.fahmex190.enjin" --web-dir out
+          npx cap add android
+          npx cap build android --no-open
+          
+      - name: Sediakan Link Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: EnjinGame-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
